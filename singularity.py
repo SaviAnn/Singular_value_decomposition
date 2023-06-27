@@ -63,14 +63,10 @@ if uploaded_file is not None:
     trunc_V = V[:top_k, :]
     trunc_img = trunc_U@trunc_sigma@trunc_V
     st.image(trunc_img, clamp=True)
-    img_byte_arr = io.BytesIO()
-    trunc_img.save(img_byte_arr, format='PNG')
-    img_byte_arr = img_byte_arr.getvalue()
-
-    # Получаем размер изображения в байтах
-    img_size = len(img_byte_arr)
-
-    st.write(f"Greyscale compressed image: {img_size} byte")
+    trunc_img = Image.fromarray(np.uint8(trunc_img))
+    width, height = trunc_img.size
+   
+    st.write(f"Greyscale compressed image: {width} x {height}  byte")
      #Теперь для цветного
      # Преобразуем изображение в массив NumPy
     img_array = np.array(image)
