@@ -5,6 +5,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import io
+import sys
 
 
 
@@ -23,11 +24,11 @@ if uploaded_file is not None:
     #### Selected image
         """)
     st.image(image,use_column_width=True)
-    buffer_col = image.tobytes()
+    #buffer_col = image.tobytes()
     # Получаем размер изображения в байтах
-    img_size = len(buffer_col)
+    img_size = sys.getsizeof(image)/1024
 
-    st.write(f"Initial image: {img_size} byte")
+    st.write(f"Initial image: {img_size} KB")
     img = image
     img = img.convert("L")
      # отображаем изображение
@@ -35,10 +36,7 @@ if uploaded_file is not None:
     #### Change to grayscale in order to ease calculations
         """)
     st.image(img,use_column_width=True)
-    buffer_gr = img.tobytes()
-
-    # Получаем размер изображения в байтах
-    img_size = len(buffer_gr)
+    img_size = sys.getsizeof(img)/1024
 
     st.write(f"Greyscale initial image: {img_size} byte")
     #img.ravel().shape
@@ -58,11 +56,10 @@ if uploaded_file is not None:
     trunc_img = trunc_U@trunc_sigma@trunc_V
     st.image(trunc_img, clamp=True)
     trunc_img = Image.fromarray(np.uint8(trunc_img))
-    buffer_gr = trunc_img.tobytes()
-    size_in_bytes = len(buffer_gr)
+    img_size = sys.getsizeof(trunc_img)/1024
    
    
-    st.write(f"Greyscale compressed image: {size_in_bytes}  byte")
+    st.write(f"Greyscale compressed image: {img_size }  KB")
      #Теперь для цветного
      # Преобразуем изображение в массив NumPy
     img_array = np.array(image)
@@ -101,8 +98,8 @@ if uploaded_file is not None:
     # Отображаем восстановленное цветное изображение
     st.image(trunc_img, clamp=True, use_column_width=True)
     # Получаем буфер изображения и считаем его размер
-    buffer = trunc_img.tobytes()
-    size_in_bytes = len(buffer)
-   
+    # buffer = trunc_img.tobytes()
+    # size_in_bytes = len(buffer)
+    img_size = sys.getsizeof(trunc_img)/1024
 
     st.write(f"Compressed image: {size_in_bytes} byte")
