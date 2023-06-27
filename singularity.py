@@ -39,6 +39,7 @@ if uploaded_file is not None:
     #### Change to grayscale in order to ease calculations
         """)
     st.image(img,use_column_width=True)
+    img_byte_arr = io.BytesIO()
     img.save(img_byte_arr, format='PNG')
     img_byte_arr = img_byte_arr.getvalue()
 
@@ -62,6 +63,7 @@ if uploaded_file is not None:
     trunc_V = V[:top_k, :]
     trunc_img = trunc_U@trunc_sigma@trunc_V
     st.image(trunc_img, clamp=True)
+    img_byte_arr = io.BytesIO()
     trunc_img.save(img_byte_arr, format='PNG')
     img_byte_arr = img_byte_arr.getvalue()
 
@@ -106,6 +108,7 @@ if uploaded_file is not None:
 
     # Отображаем восстановленное цветное изображение
     st.image(trunc_img, clamp=True, use_column_width=True)
+    img_byte_arr = io.BytesIO()
     trunc_img.save(img_byte_arr, format='PNG')
     img_byte_arr = img_byte_arr.getvalue()
 
