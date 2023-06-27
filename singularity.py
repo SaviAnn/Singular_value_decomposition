@@ -6,8 +6,7 @@ from matplotlib import pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import io
 
-# Создаем байтовый поток для хранения изображения
-img_byte_arr = io.BytesIO()
+
 
 st.write("""
 # Singular Value Decomposition (SVD) and Image Compression
@@ -19,6 +18,8 @@ uploaded_file = st.file_uploader("Select image", type=["jpg","jpeg","png"])
 if uploaded_file is not None:
     # читаем файл в формате PIL
     image = Image.open(uploaded_file)
+    # Создаем байтовый поток для хранения изображения
+    img_byte_arr = io.BytesIO()
     # отображаем изображение
     st.write("""
     #### Selected image
@@ -31,9 +32,6 @@ if uploaded_file is not None:
     img_size = len(img_byte_arr)
 
     st.write(f"Initial image: {img_size} byte")
-
-    #col_img = plt.imread('Kit_colour.jpeg')
-    #img = Image.fromarray(image)
     img = image
     img = img.convert("L")
      # отображаем изображение
