@@ -60,7 +60,7 @@ if uploaded_file is not None:
     # Разделяем массив на цветовые каналы
     red = img_array[:, :, 0]
     green = img_array[:, :, 1]
-    blue = img_array[:, :, 
+    blue = img_array[:, :, 2]
    
     # Выполняем SVD разложение для каждого цветового канала
     U_red, sing_vals_red, V_red = np.linalg.svd(red)
