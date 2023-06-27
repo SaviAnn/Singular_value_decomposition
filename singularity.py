@@ -4,6 +4,11 @@ from PIL import Image
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.preprocessing import StandardScaler
+import io
+
+# Создаем байтовый поток для хранения изображения
+img_byte_arr = io.BytesIO()
+
 st.write("""
 # Singular Value Decomposition (SVD) and Image Compression
 """)
@@ -19,6 +24,13 @@ if uploaded_file is not None:
     #### Selected image
         """)
     st.image(image,use_column_width=True)
+    image.save(img_byte_arr, format='PNG')
+    img_byte_arr = img_byte_arr.getvalue()
+
+    # Получаем размер изображения в байтах
+    img_size = len(img_byte_arr)
+
+    st.write(f"Initial image: {img_size} byte")
 
     #col_img = plt.imread('Kit_colour.jpeg')
     #img = Image.fromarray(image)
@@ -29,7 +41,13 @@ if uploaded_file is not None:
     #### Change to grayscale in order to ease calculations
         """)
     st.image(img,use_column_width=True)
-    
+    img.save(img_byte_arr, format='PNG')
+    img_byte_arr = img_byte_arr.getvalue()
+
+    # Получаем размер изображения в байтах
+    img_size = len(img_byte_arr)
+
+    st.write(f"Greyscale initial image: {img_size} byte")
     #img.ravel().shape
     img=np.asarray(img)
     img = img/255
@@ -46,14 +64,14 @@ if uploaded_file is not None:
     trunc_V = V[:top_k, :]
     trunc_img = trunc_U@trunc_sigma@trunc_V
     st.image(trunc_img, clamp=True)
-     #Теперь для цветного
-    # # Разбиваем изображение на цветовые каналы
-    # red, green, blue = image.split()
+    trunc_img.save(img_byte_arr, format='PNG')
+    img_byte_arr = img_byte_arr.getvalue()
 
-    # # Преобразуем каждый канал в массив NumPy
-    # red = np.asarray(red)
-    # green = np.asarray(green)
-    # blue = np.asarray(blue)
+    # Получаем размер изображения в байтах
+    img_size = len(img_byte_arr)
+
+    st.write(f"Greyscale compressed image: {img_size} byte")
+     #Теперь для цветного
      # Преобразуем изображение в массив NumPy
     img_array = np.array(image)
 
@@ -66,8 +84,6 @@ if uploaded_file is not None:
     U_red, sing_vals_red, V_red = np.linalg.svd(red)
     U_green, sing_vals_green, V_green = np.linalg.svd(green)
     U_blue, sing_vals_blue, V_blue = np.linalg.svd(blue)
-
-
 
     # Обрезаем матрицы U, sigma и V до top_k компонент
     trunc_U_red = U_red[:, :top_k]
@@ -92,3 +108,10 @@ if uploaded_file is not None:
 
     # Отображаем восстановленное цветное изображение
     st.image(trunc_img, clamp=True, use_column_width=True)
+    trunc_img.save(img_byte_arr, format='PNG')
+    img_byte_arr = img_byte_arr.getvalue()
+
+    # Получаем размер изображения в байтах
+    img_size = len(img_byte_arr)
+
+    st.write(f"Compressed image: {img_size} byte")
