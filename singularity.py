@@ -102,4 +102,4 @@ if uploaded_file is not None:
     # size_in_bytes = len(buffer)
     img_size = sys.getsizeof(trunc_img)/1024
 
-    st.write(f"Compressed image: {size_in_bytes} byte")
+    st.write(f"Compressed image: {img_size} KB")
