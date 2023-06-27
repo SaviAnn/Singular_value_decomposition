@@ -47,13 +47,20 @@ if uploaded_file is not None:
     trunc_img = trunc_U@trunc_sigma@trunc_V
     st.image(trunc_img, clamp=True)
      #Теперь для цветного
-    # Разбиваем изображение на цветовые каналы
-    red, green, blue = image.split()
+    # # Разбиваем изображение на цветовые каналы
+    # red, green, blue = image.split()
 
-    # Преобразуем каждый канал в массив NumPy
-    red = np.asarray(red)
-    green = np.asarray(green)
-    blue = np.asarray(blue)
+    # # Преобразуем каждый канал в массив NumPy
+    # red = np.asarray(red)
+    # green = np.asarray(green)
+    # blue = np.asarray(blue)
+     # Преобразуем изображение в массив NumPy
+    img_array = np.array(image)
+
+    # Разделяем массив на цветовые каналы
+    red = img_array[:, :, 0]
+    green = img_array[:, :, 1]
+    blue = img_array[:, :, 
    
     # Выполняем SVD разложение для каждого цветового канала
     U_red, sing_vals_red, V_red = np.linalg.svd(red)
