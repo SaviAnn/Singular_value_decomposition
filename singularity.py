@@ -86,7 +86,7 @@ if uploaded_file is not None:
     U_blue, sing_vals_blue, V_blue = np.linalg.svd(blue)
 
     # Обрезаем матрицы U, sigma и V до top_k компонент
-    trunc_U_red = U_red[:, :top_k]
+    trunc_U_red = U_red[:, :top_k]https://github.com/SaviAnn/Singular_value_decomposition/blob/main/singularity.py
     trunc_sigma_red = np.diag(sing_vals_red[:top_k])
     trunc_V_red = V_red[:top_k, :]
 
@@ -109,7 +109,7 @@ if uploaded_file is not None:
     # Отображаем восстановленное цветное изображение
     st.image(trunc_img, clamp=True, use_column_width=True)
     img_byte_arr = io.BytesIO()
-   trunc_img = Image.fromarray(trunc_img)
+    trunc_img = Image.fromarray(trunc_img)
     trunc_img.save(img_byte_arr, format='PNG')
     img_byte_arr = img_byte_arr.getvalue()
 
