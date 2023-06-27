@@ -104,7 +104,9 @@ if uploaded_file is not None:
 
     # Отображаем восстановленное цветное изображение
     st.image(trunc_img, clamp=True, use_column_width=True)
-    width, height = trunc_img.size
+    # Получаем буфер изображения и считаем его размер
+    buffer = trunc_img.tobytes()
+    size_in_bytes = len(buffer)
    
 
-    st.write(f"Compressed image: {width} x {height} byte")
+    st.write(f"Compressed image: {size_in_bytes} byte")
