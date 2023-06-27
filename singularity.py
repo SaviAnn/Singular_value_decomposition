@@ -23,7 +23,7 @@ if uploaded_file is not None:
     #### Selected image
         """)
     st.image(image,use_column_width=True)
-    buffer_col = img.tobytes()
+    buffer_col = image.tobytes()
     # Получаем размер изображения в байтах
     img_size = len(buffer_colr)
 
