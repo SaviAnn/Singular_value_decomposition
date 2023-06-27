@@ -109,6 +109,7 @@ if uploaded_file is not None:
     # Отображаем восстановленное цветное изображение
     st.image(trunc_img, clamp=True, use_column_width=True)
     img_byte_arr = io.BytesIO()
+   trunc_img = Image.fromarray(trunc_img)
     trunc_img.save(img_byte_arr, format='PNG')
     img_byte_arr = img_byte_arr.getvalue()
 
