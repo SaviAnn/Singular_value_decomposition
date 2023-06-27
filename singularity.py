@@ -25,7 +25,7 @@ if uploaded_file is not None:
     st.image(image,use_column_width=True)
     buffer_col = image.tobytes()
     # Получаем размер изображения в байтах
-    img_size = len(buffer_colr)
+    img_size = len(buffer_col)
 
     st.write(f"Initial image: {img_size} byte")
     img = image
