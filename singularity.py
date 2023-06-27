@@ -18,18 +18,14 @@ uploaded_file = st.file_uploader("Select image", type=["jpg","jpeg","png"])
 if uploaded_file is not None:
     # читаем файл в формате PIL
     image = Image.open(uploaded_file)
-    # Создаем байтовый поток для хранения изображения
-    img_byte_arr = io.BytesIO()
     # отображаем изображение
     st.write("""
     #### Selected image
         """)
     st.image(image,use_column_width=True)
-    image.save(img_byte_arr, format='PNG')
-    img_byte_arr = img_byte_arr.getvalue()
-
+    buffer_col = img.tobytes()
     # Получаем размер изображения в байтах
-    img_size = len(img_byte_arr)
+    img_size = len(buffer_colr)
 
     st.write(f"Initial image: {img_size} byte")
     img = image
@@ -39,12 +35,10 @@ if uploaded_file is not None:
     #### Change to grayscale in order to ease calculations
         """)
     st.image(img,use_column_width=True)
-    img_byte_arr = io.BytesIO()
-    img.save(img_byte_arr, format='PNG')
-    img_byte_arr = img_byte_arr.getvalue()
+    buffer_gr = img.tobytes()
 
     # Получаем размер изображения в байтах
-    img_size = len(img_byte_arr)
+    img_size = len(buffer_gr)
 
     st.write(f"Greyscale initial image: {img_size} byte")
     #img.ravel().shape
@@ -64,9 +58,11 @@ if uploaded_file is not None:
     trunc_img = trunc_U@trunc_sigma@trunc_V
     st.image(trunc_img, clamp=True)
     trunc_img = Image.fromarray(np.uint8(trunc_img))
-    width, height = trunc_img.size
+    buffer_gr = trunc_img.tobytes()
+    size_in_bytes = len(buffer_gr)
    
-    st.write(f"Greyscale compressed image: {width} x {height}  byte")
+   
+    st.write(f"Greyscale compressed image: {size_in_bytes}  byte")
      #Теперь для цветного
      # Преобразуем изображение в массив NumPy
     img_array = np.array(image)
